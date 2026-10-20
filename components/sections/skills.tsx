@@ -40,9 +40,9 @@ export function Skills() {
           <div className="glass h-full rounded-2xl p-6">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="size-5 text-primary" aria-hidden="true" />
-              <h3 className="text-lg font-semibold">Working experience</h3>
+              <h3 className="text-lg font-semibold">Professional experience</h3>
             </div>
-            <p className="mt-1 text-sm text-muted-foreground">Used professionally or in completed projects.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Used in my work at Tata Consultancy Services.</p>
             <ul className="mt-4 divide-y divide-white/5">
               {experiencedSkills.map((s) => (
                 <SkillRow key={s.name} skill={s} />
@@ -54,9 +54,11 @@ export function Skills() {
           <div className="glass h-full rounded-2xl p-6">
             <div className="flex items-center gap-2">
               <Sparkles className="size-5 text-electric" aria-hidden="true" />
-              <h3 className="text-lg font-semibold">Currently learning</h3>
+              <h3 className="text-lg font-semibold">Data Engineering</h3>
             </div>
-            <p className="mt-1 text-sm text-muted-foreground">Actively studying for Data Engineering roles.</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Applied in personal projects and ongoing study — not professional experience yet.
+            </p>
             <ul className="mt-4 divide-y divide-white/5">
               {learningSkills.map((s) => (
                 <SkillRow key={s.name} skill={s} learning />

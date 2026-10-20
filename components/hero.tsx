@@ -82,9 +82,13 @@ export function Hero() {
               Contact
             </a>
             {profile.resumeUrl ? (
-              <a href={profile.resumeUrl} download className={cn(buttonBase, 'glass text-foreground hover:bg-white/10')}>
+              <a
+                href={profile.resumeUrl}
+                download
+                className={cn(buttonBase, 'border border-primary/50 bg-primary/10 text-foreground hover:bg-primary/20')}
+              >
                 <Download className="size-4" aria-hidden="true" />
-                Resume
+                Download Resume
               </a>
             ) : (
               <span

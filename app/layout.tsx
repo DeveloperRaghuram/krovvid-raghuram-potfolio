@@ -7,9 +7,9 @@ const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 export const metadata: Metadata = {
-  title: 'Krovvidi Raghuram | Software Developer — Java Backend & Data Engineering',
+  title: 'Krovvidi Raghuram | Software Engineer — Java Backend Developer',
   description:
-    'Portfolio of Krovvidi Raghuram, Assistant System Engineer at Tata Consultancy Services, focused on Java backend development, SQL, REST APIs, and Data Engineering.',
+    'Portfolio of Krovvidi Raghuram, Software Engineer at Tata Consultancy Services: Java backend development, Jersey REST APIs, Oracle SQL, and a growing Data Engineering practice.',
   generator: 'v0.app',
   icons: {
     icon: [

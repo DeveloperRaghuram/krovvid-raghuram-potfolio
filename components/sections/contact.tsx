@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail } from 'lucide-react'
+import { ArrowUpRight, Download, Mail } from 'lucide-react'
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from '@/components/brand-icons'
 import { profile } from '@/lib/portfolio-data'
 import { Section } from '@/components/section'
@@ -60,6 +60,18 @@ export function Contact() {
           </Reveal>
         ))}
       </ul>
+      {profile.resumeUrl && (
+        <Reveal delay={260} className="mt-8 flex justify-center">
+          <a
+            href={profile.resumeUrl}
+            download
+            className="inline-flex h-12 items-center gap-2 rounded-lg bg-primary px-6 text-sm font-medium text-primary-foreground shadow-[0_0_30px_-5px] shadow-primary/60 transition-colors hover:bg-primary/90"
+          >
+            <Download className="size-4" aria-hidden="true" />
+            Download Resume
+          </a>
+        </Reveal>
+      )}
     </Section>
   )
 }

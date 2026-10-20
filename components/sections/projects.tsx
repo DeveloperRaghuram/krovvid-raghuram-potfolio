@@ -1,41 +1,24 @@
-import { ExternalLink, Plus } from 'lucide-react'
+import Link from 'next/link'
+import { ArrowRight, Building2, Lock, User } from 'lucide-react'
 import { GithubIcon as Github } from '@/components/brand-icons'
 import { projects, type Project } from '@/lib/portfolio-data'
-import { Section, Placeholder, isPlaceholder } from '@/components/section'
+import { Section } from '@/components/section'
 import { Reveal } from '@/components/reveal'
+import { cn } from '@/lib/utils'
 
-function ProjectLink({ href, label, icon: Icon }: { href: string | null; label: string; icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }> }) {
-  if (!href) {
-    return (
-      <span className="inline-flex items-center gap-1.5 rounded-md border border-dashed border-amber-400/40 px-2.5 py-1.5 font-mono text-xs text-amber-200/80">
-        <Icon className="size-3.5" aria-hidden="true" />
-        {label} [add link]
-      </span>
-    )
-  }
+function ProjectCard({ project, featured }: { project: Project; featured?: boolean }) {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 rounded-md border border-white/10 px-2.5 py-1.5 text-xs font-medium transition-colors hover:border-primary/50 hover:text-primary"
+    <article
+      className={cn(
+        'glass group relative flex h-full flex-col overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_20px_60px_-20px] hover:shadow-primary/40 md:p-7',
+        featured && 'border-primary/30',
+      )}
     >
-      <Icon className="size-3.5" aria-hidden="true" />
-      {label}
-      <span className="sr-only">(opens in new tab)</span>
-    </a>
-  )
-}
-
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  return (
-    <article className="glass group relative flex h-full flex-col overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_20px_60px_-20px] hover:shadow-primary/40 md:p-7">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-20 -top-20 size-48 rounded-full bg-electric/10 blur-3xl transition-opacity duration-500 group-hover:opacity-100 md:opacity-0"
       />
-      <p className="font-mono text-xs text-muted-foreground">{String(index + 1).padStart(2, '0')}</p>
-      <h3 className="mt-2 text-2xl font-semibold tracking-tight">{project.title}</h3>
+      <h4 className="text-2xl font-semibold tracking-tight text-balance">{project.title}</h4>
       <p className="mt-1 text-electric">{project.tagline}</p>
       <p className="mt-4 leading-relaxed text-muted-foreground">{project.description}</p>
 
@@ -43,48 +26,98 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {project.features.map((f) => (
           <li key={f} className="flex gap-2.5">
             <span aria-hidden="true" className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
-            {isPlaceholder(f) ? <Placeholder className="whitespace-normal">{f}</Placeholder> : f}
+            {f}
           </li>
         ))}
       </ul>
 
       <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technologies">
-        {project.tags.map((t) =>
-          isPlaceholder(t) ? (
-            <li key={t}>
-              <Placeholder>{t}</Placeholder>
-            </li>
-          ) : (
-            <li key={t} className="rounded-md bg-white/5 px-2.5 py-1 font-mono text-xs text-foreground/80">
-              {t}
-            </li>
-          ),
-        )}
+        {project.tags.map((t) => (
+          <li key={t} className="rounded-md bg-white/5 px-2.5 py-1 font-mono text-xs text-foreground/80">
+            {t}
+          </li>
+        ))}
       </ul>
 
-      <div className="mt-auto flex flex-wrap gap-2 pt-6">
-        <ProjectLink href={project.github} label="GitHub" icon={Github} />
-        <ProjectLink href={project.demo} label="Live demo" icon={ExternalLink} />
+      <div className="mt-auto flex flex-wrap gap-3 pt-6">
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-10 items-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground shadow-[0_0_24px_-6px] shadow-primary/60 transition-colors hover:bg-primary/90"
+          >
+            <Github className="size-4" aria-hidden="true" />
+            View Source Code
+            <span className="sr-only">(opens in new tab)</span>
+          </a>
+        )}
+        {project.detailHref && (
+          <Link
+            href={project.detailHref}
+            className="inline-flex h-10 items-center gap-2 rounded-lg border border-white/10 px-4 text-sm font-medium transition-colors hover:border-primary/50 hover:text-primary"
+          >
+            Project details
+            <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
+        )}
+        {project.kind === 'professional' && (
+          <span className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
+            <Lock className="size-3.5" aria-hidden="true" />
+            Company work — source code not public
+          </span>
+        )}
       </div>
     </article>
   )
 }
 
-export function Projects() {
+function GroupHeading({ icon: Icon, title, text }: { icon: typeof User; title: string; text: string }) {
   return (
-    <Section id="projects" eyebrow="04 · Projects" title="Selected projects">
-      <div className="grid gap-6 md:grid-cols-2">
-        {projects.map((p, i) => (
-          <Reveal key={p.title} delay={i * 100} className="h-full">
-            <ProjectCard project={p} index={i} />
-          </Reveal>
-        ))}
-        <Reveal delay={200} className="md:col-span-2">
-          <div className="flex items-center justify-center gap-3 rounded-2xl border border-dashed border-white/15 p-6 text-sm text-muted-foreground">
-            <Plus className="size-4" aria-hidden="true" />
-            More projects coming soon
+    <div className="mb-5 flex items-center gap-3">
+      <span className="grid size-9 place-items-center rounded-lg bg-primary/15 text-primary">
+        <Icon className="size-4" aria-hidden="true" />
+      </span>
+      <div>
+        <h3 className="text-lg font-semibold">{title}</h3>
+        <p className="text-sm text-muted-foreground">{text}</p>
+      </div>
+    </div>
+  )
+}
+
+export function Projects() {
+  const personal = projects.filter((p) => p.kind === 'personal')
+  const professional = projects.filter((p) => p.kind === 'professional')
+
+  return (
+    <Section id="projects" eyebrow="04 · Projects" title="Projects">
+      <div className="flex flex-col gap-12">
+        <div>
+          <GroupHeading icon={User} title="Personal projects" text="Built independently, source code on GitHub." />
+          <div className="grid gap-6">
+            {personal.map((p) => (
+              <Reveal key={p.slug}>
+                <ProjectCard project={p} featured />
+              </Reveal>
+            ))}
           </div>
-        </Reveal>
+        </div>
+
+        <div>
+          <GroupHeading
+            icon={Building2}
+            title="Professional projects"
+            text="Work delivered at Tata Consultancy Services."
+          />
+          <div className="grid gap-6 md:grid-cols-2">
+            {professional.map((p, i) => (
+              <Reveal key={p.slug} delay={i * 100} className="h-full">
+                <ProjectCard project={p} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </Section>
   )
