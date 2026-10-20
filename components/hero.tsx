@@ -52,7 +52,7 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-electric opacity-60" />
               <span className="relative inline-flex size-2 rounded-full bg-electric" />
             </span>
-            Software Developer at TCS
+            2+ years at TCS · Hyderabad
           </p>
 
           <h1 id="hero-title" className="mt-6 text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
