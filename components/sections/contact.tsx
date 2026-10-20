@@ -60,6 +60,22 @@ export function Contact() {
           </Reveal>
         ))}
       </ul>
+      <Reveal delay={240} className="mt-6 flex justify-center">
+        <a
+          href="https://github.com/DeveloperRaghuram/krovvid-raghuram-potfolio"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center gap-2 rounded-lg border border-primary/40 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10"
+        >
+          <Github className="size-4" aria-hidden="true" />
+          Portfolio Source Code
+          <ArrowUpRight
+            className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            aria-hidden="true"
+          />
+          <span className="sr-only">(opens in new tab)</span>
+        </a>
+      </Reveal>
       {profile.resumeUrl && (
         <Reveal delay={260} className="mt-8 flex justify-center">
           <a
